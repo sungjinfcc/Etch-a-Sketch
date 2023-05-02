@@ -1,7 +1,5 @@
 const container = document.querySelector('.container');
 
-let rowNum = 64;
-
 function createDiv(row){
     for(let i = 0; i<row; i++){
         const flexContainer = document.createElement('div');
@@ -19,11 +17,28 @@ function createDiv(row){
     }
 }
 
-createDiv(rowNum);
+createDiv(16);
+addMarkFunction();
 
 function markBlack(e){
     e.target.style.backgroundColor = 'black';
 }
-
-const squares = Array.from(document.querySelectorAll('.square'));
+function addMarkFunction(){
+    const squares = Array.from(document.querySelectorAll('.square'));
 squares.forEach((item) => item.addEventListener('mouseover', markBlack));
+}
+function clearContainer(){
+    container.innerHTML = "";
+}
+function resetAndDraw(){
+    let rowNum = prompt("How many rows? (1 ~ 100)");
+    if(rowNum > 100 || rowNum < 1 || !Number.isInteger(Number(rowNum))){
+        rowNum = 16;
+    }
+    clearContainer();
+    createDiv(rowNum);
+    addMarkFunction();
+}
+
+const resetButton = document.querySelector('.reset');
+resetButton.addEventListener('click', resetAndDraw);
